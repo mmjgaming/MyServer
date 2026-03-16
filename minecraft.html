@@ -1,1 +1,260 @@
-coming soon
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Minecraft Mods | MMJ Online</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+}
+
+/* HEADER */
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:#020617;
+position:sticky;
+top:0;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+}
+
+.menu{
+position:relative;
+}
+
+.dots{
+font-size:26px;
+cursor:pointer;
+}
+
+.dropdown{
+display:none;
+position:absolute;
+right:0;
+top:35px;
+background:#1e293b;
+padding:15px;
+border-radius:8px;
+width:170px;
+}
+
+.dropdown a{
+display:block;
+padding:8px;
+text-decoration:none;
+color:white;
+}
+
+.dropdown a:hover{
+background:#334155;
+border-radius:5px;
+}
+
+/* HERO */
+
+.hero{
+height:40vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(135deg,#16a34a,#1e293b);
+}
+
+.hero h1{
+font-size:45px;
+}
+
+/* GRID */
+
+.mods{
+display:flex;
+flex-wrap:wrap;
+gap:25px;
+justify-content:center;
+padding:60px 20px;
+}
+
+.mod-card{
+background:#1e293b;
+padding:25px;
+width:260px;
+border-radius:10px;
+text-align:center;
+}
+
+.mod-card:hover{
+transform:scale(1.05);
+transition:.3s;
+}
+
+.download{
+display:inline-block;
+margin-top:10px;
+padding:10px 18px;
+background:#22c55e;
+border-radius:6px;
+text-decoration:none;
+color:white;
+}
+
+/* SUPPORT */
+
+.support-btn{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#22c55e;
+padding:15px 20px;
+border-radius:50px;
+text-decoration:none;
+color:white;
+font-weight:bold;
+}
+
+/* FOOTER */
+
+footer{
+background:#020617;
+padding:20px;
+text-align:center;
+margin-top:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">MMJ Online</div>
+
+<div class="menu">
+
+<div class="dots" onclick="toggleMenu()">⋮</div>
+
+<div class="dropdown" id="menu">
+
+<a href="index.html">Home</a>
+<a href="bio.html">Bio</a>
+<a href="skills.html">Skills</a>
+<a href="minecraft.html">Minecraft Mods</a>
+<a href="support.html">Support</a>
+
+</div>
+
+</div>
+
+</header>
+
+
+<section class="hero">
+<div>
+<h1>Minecraft Mods & Resource Packs</h1>
+<p>Recommended tools to enhance your Minecraft experience</p>
+</div>
+</section>
+
+
+<section class="mods">
+
+<!-- MODS -->
+
+<div class="mod-card">
+<h3>OptiFine</h3>
+<p>Improves FPS, graphics, shaders, and performance.</p>
+<a class="download" href="https://optifine.net/downloads">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>Just Enough Items (JEI)</h3>
+<p>Shows crafting recipes and item uses in Minecraft.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/jei">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>JourneyMap</h3>
+<p>Real-time minimap and world map for navigation.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/journeymap">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>Biomes O' Plenty</h3>
+<p>Adds many new biomes to explore.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/biomes-o-plenty">Download</a>
+</div>
+
+
+<!-- RESOURCE PACKS -->
+
+<div class="mod-card">
+<h3>Faithful 32x</h3>
+<p>Classic Minecraft textures but higher resolution.</p>
+<a class="download" href="https://faithfulpack.net">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>ModernArch</h3>
+<p>Ultra realistic modern resource pack.</p>
+<a class="download" href="https://modernearch.com">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>PureBDCraft</h3>
+<p>Comic-style textures with vibrant colors.</p>
+<a class="download" href="https://bdcraft.net">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>Clarity</h3>
+<p>Clean and detailed Minecraft texture pack.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/clarity">Download</a>
+</div>
+
+</section>
+
+
+<footer>
+<p>© 2026 MMJ Online | Powered by GitHub Pages</p>
+</footer>
+
+
+<a class="support-btn" href="support.html">Support</a>
+
+
+<script>
+
+function toggleMenu(){
+
+var menu=document.getElementById("menu");
+
+if(menu.style.display=="block"){
+menu.style.display="none";
+}else{
+menu.style.display="block";
+}
+
+}
+
+</script>
+
+</body>
+</html>
