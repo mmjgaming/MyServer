@@ -26,8 +26,6 @@ justify-content:space-between;
 align-items:center;
 padding:15px 40px;
 background:#020617;
-position:sticky;
-top:0;
 }
 
 .logo{
@@ -78,10 +76,6 @@ text-align:center;
 background:linear-gradient(135deg,#16a34a,#1e293b);
 }
 
-.hero h1{
-font-size:45px;
-}
-
 /* GRID */
 
 .mods{
@@ -115,7 +109,7 @@ text-decoration:none;
 color:white;
 }
 
-/* SUPPORT */
+/* SUPPORT BUTTON */
 
 .support-btn{
 position:fixed;
@@ -135,7 +129,6 @@ footer{
 background:#020617;
 padding:20px;
 text-align:center;
-margin-top:40px;
 }
 
 </style>
@@ -148,58 +141,90 @@ margin-top:40px;
 <div class="logo">MMJ Online</div>
 
 <div class="menu">
-
 <div class="dots" onclick="toggleMenu()">⋮</div>
 
 <div class="dropdown" id="menu">
-
 <a href="index.html">Home</a>
 <a href="bio.html">Bio</a>
 <a href="skills.html">Skills</a>
 <a href="minecraft.html">Minecraft Mods</a>
 <a href="support.html">Support</a>
-
 </div>
 
 </div>
 
 </header>
 
-
 <section class="hero">
 <div>
 <h1>Minecraft Mods & Resource Packs</h1>
-<p>Recommended tools to enhance your Minecraft experience</p>
+<p>Recommended mods to improve your gameplay</p>
 </div>
 </section>
 
 
 <section class="mods">
 
-<!-- MODS -->
+<!-- PERFORMANCE MODS -->
+
+<div class="mod-card">
+<h3>Sodium</h3>
+<p>Massive FPS boost for Minecraft.</p>
+<a class="download" href="https://modrinth.com/mod/sodium">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>Sodium Extra</h3>
+<p>Extra settings and features for Sodium.</p>
+<a class="download" href="https://modrinth.com/mod/sodium-extra">Download</a>
+</div>
 
 <div class="mod-card">
 <h3>OptiFine</h3>
-<p>Improves FPS, graphics, shaders, and performance.</p>
+<p>Improves graphics and adds shader support.</p>
 <a class="download" href="https://optifine.net/downloads">Download</a>
 </div>
 
 <div class="mod-card">
-<h3>Just Enough Items (JEI)</h3>
-<p>Shows crafting recipes and item uses in Minecraft.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/jei">Download</a>
+<h3>Feather Client</h3>
+<p>Performance Minecraft client with mods.</p>
+<a class="download" href="https://feathermc.com">Download</a>
 </div>
 
 <div class="mod-card">
 <h3>JourneyMap</h3>
-<p>Real-time minimap and world map for navigation.</p>
+<p>Real-time minimap and world map.</p>
 <a class="download" href="https://www.curseforge.com/minecraft/mc-mods/journeymap">Download</a>
 </div>
 
 <div class="mod-card">
+<h3>Just Enough Items (JEI)</h3>
+<p>Shows crafting recipes.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/jei">Download</a>
+</div>
+
+<div class="mod-card">
 <h3>Biomes O' Plenty</h3>
-<p>Adds many new biomes to explore.</p>
+<p>Adds many new biomes.</p>
 <a class="download" href="https://www.curseforge.com/minecraft/mc-mods/biomes-o-plenty">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>Alex's Mobs</h3>
+<p>Adds realistic animals to Minecraft.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/alexs-mobs">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>Create Mod</h3>
+<p>Mechanical automation and machines.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/create">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>MV Vehicle Plugin</h3>
+<p>Adds drivable vehicles to Minecraft servers.</p>
+<a class="download" href="https://www.spigotmc.org">Download</a>
 </div>
 
 
@@ -207,53 +232,81 @@ margin-top:40px;
 
 <div class="mod-card">
 <h3>Faithful 32x</h3>
-<p>Classic Minecraft textures but higher resolution.</p>
+<p>Higher resolution Minecraft textures.</p>
 <a class="download" href="https://faithfulpack.net">Download</a>
 </div>
 
 <div class="mod-card">
 <h3>ModernArch</h3>
-<p>Ultra realistic modern resource pack.</p>
+<p>Ultra realistic textures.</p>
 <a class="download" href="https://modernearch.com">Download</a>
 </div>
 
 <div class="mod-card">
+<h3>Clarity</h3>
+<p>Clean and detailed textures.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/clarity">Download</a>
+</div>
+
+<div class="mod-card">
 <h3>PureBDCraft</h3>
-<p>Comic-style textures with vibrant colors.</p>
+<p>Comic-style Minecraft pack.</p>
 <a class="download" href="https://bdcraft.net">Download</a>
 </div>
 
 <div class="mod-card">
-<h3>Clarity</h3>
-<p>Clean and detailed Minecraft texture pack.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/clarity">Download</a>
+<h3>Stay True</h3>
+<p>Improves default Minecraft textures.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/stay-true">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>Vanilla Tweaks</h3>
+<p>Customizable resource packs.</p>
+<a class="download" href="https://vanillatweaks.net">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>John Smith Legacy</h3>
+<p>Medieval themed textures.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/john-smith-legacy">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>LB Photo Realism</h3>
+<p>Photorealistic Minecraft textures.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/lb-photo-realism">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>Depixel</h3>
+<p>Smooth realistic textures.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/depixel">Download</a>
+</div>
+
+<div class="mod-card">
+<h3>Default+ Pack</h3>
+<p>Improves vanilla Minecraft look.</p>
+<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/default-plus">Download</a>
 </div>
 
 </section>
-
 
 <footer>
 <p>© 2026 MMJ Online | Powered by GitHub Pages</p>
 </footer>
 
-
 <a class="support-btn" href="support.html">Support</a>
 
-
 <script>
-
 function toggleMenu(){
-
 var menu=document.getElementById("menu");
-
 if(menu.style.display=="block"){
 menu.style.display="none";
 }else{
 menu.style.display="block";
 }
-
 }
-
 </script>
 
 </body>
