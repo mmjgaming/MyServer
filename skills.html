@@ -1,51 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Skills | MMJ Online</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>My Skills | MMJ Online</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+}
+
+/* HEADER */
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:#020617;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+}
+
+.menu{
+position:relative;
+}
+
+.dots{
+font-size:26px;
+cursor:pointer;
+}
+
+.dropdown{
+display:none;
+position:absolute;
+right:0;
+top:35px;
+background:#1e293b;
+padding:15px;
+border-radius:8px;
+width:170px;
+}
+
+.dropdown a{
+display:block;
+padding:8px;
+text-decoration:none;
+color:white;
+}
+
+.dropdown a:hover{
+background:#334155;
+border-radius:5px;
+}
+
+/* HERO */
+
+.hero{
+height:40vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(135deg,#0ea5e9,#1e293b);
+}
+
+.hero h1{
+font-size:45px;
+}
+
+.hero p{
+margin-top:10px;
+font-size:18px;
+}
+
+/* SKILLS */
+
+.skills{
+padding:60px 20px;
+max-width:900px;
+margin:auto;
+}
+
+.skill{
+margin-bottom:30px;
+}
+
+.skill-title{
+margin-bottom:8px;
+}
+
+.progress{
+background:#1e293b;
+border-radius:10px;
+overflow:hidden;
+height:20px;
+}
+
+.progress-bar{
+height:20px;
+background:#0ea5e9;
+}
+
+/* CARDS */
+
+.skills-grid{
+display:flex;
+gap:25px;
+justify-content:center;
+flex-wrap:wrap;
+padding:40px 20px;
+}
+
+.skill-card{
+background:#1e293b;
+padding:25px;
+width:260px;
+border-radius:10px;
+text-align:center;
+}
+
+.skill-card:hover{
+transform:scale(1.05);
+transition:.3s;
+}
+
+/* HIRE */
+
+.hire{
+text-align:center;
+padding:60px 20px;
+}
+
+.hire-btn{
+display:inline-block;
+margin-top:20px;
+padding:12px 25px;
+background:#0ea5e9;
+border-radius:8px;
+text-decoration:none;
+color:white;
+}
+
+/* SUPPORT BUTTON */
+
+.support-btn{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#22c55e;
+padding:15px 20px;
+border-radius:50px;
+text-decoration:none;
+color:white;
+font-weight:bold;
+}
+
+/* FOOTER */
+
+footer{
+background:#020617;
+padding:20px;
+text-align:center;
+margin-top:40px;
+}
+
+</style>
 </head>
+
 <body>
-  <!-- Hero Banner -->
-  <header class="hero small-hero">
-    <div class="overlay">
-      <h1>My Skills</h1>
-      <p>Creative Minecraft builds • Professional Web Design • Mod Recommendations</p>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="bio.html">Bio</a>
-        <a href="minecraft.html">Minecraft Mods</a>
-      </nav>
-    </div>
-  </header>
 
-  <!-- Skills Section -->
-  <section class="skills-grid">
-    <div class="skill-card">
-      <h2>🎮 Minecraft Building</h2>
-      <p>I design immersive worlds, adventure maps, and creative builds with precision and imagination.</p>
-    </div>
+<header>
 
-    <div class="skill-card">
-      <h2>💻 Website Development</h2>
-      <p>I build professional websites with clean navigation, branding, and interactive features.</p>
-    </div>
+<div class="logo">MMJ Online</div>
 
-    <div class="skill-card">
-      <h2>🧩 Mods & Plugins</h2>
-      <p>I recommend and configure Minecraft mods, plugins, and resource packs to enhance gameplay.</p>
-    </div>
-  </section>
+<div class="menu">
 
-  <!-- Hire Me Section -->
-  <section class="hire">
-    <h2>Work With Me</h2>
-    <p>Looking for a Minecraft builder or a web designer? Let’s collaborate.</p>
-    <a href="https://forms.gle/1WkJHdXVMGKsFdC48" class="hire-btn">Hire Me</a>
-  </section>
+<div class="dots" onclick="toggleMenu()">⋮</div>
 
-  <footer>
-    <p>© 2026 MMJ Online | Powered by GitHub Pages</p>
-  </footer>
+<div class="dropdown" id="menu">
+
+<a href="index.html">Home</a>
+<a href="bio.html">Bio</a>
+<a href="skills.html">Skills</a>
+<a href="minecraft.html">Minecraft Mods</a>
+<a href="support.html">Support</a>
+
+</div>
+
+</div>
+
+</header>
+
+
+<section class="hero">
+<div>
+<h1>My Skills</h1>
+<p>Creative Minecraft Builds • Professional Web Design • Mod Recommendations</p>
+</div>
+</section>
+
+
+<section class="skills">
+
+<div class="skill">
+<h3 class="skill-title">Minecraft Building</h3>
+<div class="progress">
+<div class="progress-bar" style="width:90%"></div>
+</div>
+</div>
+
+<div class="skill">
+<h3 class="skill-title">Website Development</h3>
+<div class="progress">
+<div class="progress-bar" style="width:85%"></div>
+</div>
+</div>
+
+<div class="skill">
+<h3 class="skill-title">Mods & Plugins Configuration</h3>
+<div class="progress">
+<div class="progress-bar" style="width:80%"></div>
+</div>
+</div>
+
+</section>
+
+
+<section class="skills-grid">
+
+<div class="skill-card">
+<h2>🎮 Minecraft Building</h2>
+<p>I design immersive worlds, adventure maps, and creative builds with precision and imagination.</p>
+</div>
+
+<div class="skill-card">
+<h2>💻 Website Development</h2>
+<p>I build professional websites with clean navigation, branding, and interactive features.</p>
+</div>
+
+<div class="skill-card">
+<h2>🧩 Mods & Plugins</h2>
+<p>I recommend and configure Minecraft mods, plugins, and resource packs to enhance gameplay.</p>
+</div>
+
+</section>
+
+
+<section class="hire">
+
+<h2>Work With Me</h2>
+
+<p>Looking for a Minecraft builder or a web designer? Let’s collaborate.</p>
+
+<a href="https://forms.gle/1WkJHdXVMGKsFdC48" class="hire-btn">Hire Me</a>
+
+</section>
+
+
+<footer>
+<p>© 2026 MMJ Online | Powered by GitHub Pages</p>
+</footer>
+
+
+<a class="support-btn" href="support.html">Support</a>
+
+
+<script>
+
+function toggleMenu(){
+
+var menu=document.getElementById("menu");
+
+if(menu.style.display=="block"){
+menu.style.display="none";
+}else{
+menu.style.display="block";
+}
+
+}
+
+</script>
+
 </body>
 </html>
