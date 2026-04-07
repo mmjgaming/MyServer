@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://mmjgaming.github.io/</loc>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://mmjgaming.github.io/about</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mmjgaming.github.io/contact</loc>
-    <priority>0.8</priority>
-  </url>
+  <url><loc>https://mmjplaysyt.work.gd/</loc></url>
+  <url><loc>https://mmjplaysyt.work.gd/bio.html</loc></url>
+  <url><loc>https://mmjplaysyt.work.gd/skills.html</loc></url>
+  <url><loc>https://mmjplaysyt.work.gd/minecraft.html</loc></url>
+  <url><loc>https://mmjplaysyt.work.gd/support.html</loc></url>
 </urlset>
