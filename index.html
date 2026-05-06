@@ -555,38 +555,6 @@ footer{
 
         if (isLoginMode) {
             tabLogin.classList.add('active');
-            tabSignup.classList.remove('active');<script>
-    // --- 1. SUPABASE CONFIGURATION ---
-    const SUPABASE_URL = 'https://pyndjzoiojdtxzeeccoz.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5bmRqem9pb2pkdHh6ZWVjY296Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5ODg0MjUsImV4cCI6MjA5MzU2NDQyNX0.6tH0mj_KPQDcIcIfStcsuT89kPuX1ZFVCzB2pBt03c0';
-    
-    // Initialize Supabase
-    const { createClient } = supabase;
-    const _supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    // State
-    let isLoginMode = true;
-
-    // --- 2. UI FUNCTIONS ---
-
-    function toggleMenu() {
-        var menu = document.getElementById("menu");
-        menu.style.display = (menu.style.display == "block") ? "none" : "block";
-    }
-
-    function toggleModal(show) {
-        const modal = document.getElementById('authModal');
-        modal.classList.toggle('active', show);
-    }
-
-    function setAuthMode(mode) {
-        isLoginMode = (mode === 'login');
-        const tabLogin = document.getElementById('tabLogin');
-        const tabSignup = document.getElementById('tabSignup');
-        const submitBtn = document.getElementById('submitBtn');
-
-        if (isLoginMode) {
-            tabLogin.classList.add('active');
             tabSignup.classList.remove('active');
             submitBtn.textContent = 'Login';
         } else {
@@ -716,5 +684,6 @@ footer{
         }
     }
 </script>
+
 </body>
 </html>
