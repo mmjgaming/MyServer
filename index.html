@@ -5,251 +5,591 @@
 <meta name="description" content="Official bio site of MMJGaming (mmjplays on YouTube). Explore content, projects, and gaming updates.">
 <meta name="keywords" content="MMJGaming, mmjplays, YouTube gaming, Minecraft, bio site">
 <meta name="author" content="MMJGaming">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta charset="UTF-8">
 <title>MMJ Online</title>
 
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<!-- Supabase JS Library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+/* --- RESET & VARIABLES --- */
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --bg-header: rgba(2, 6, 23, 0.95);
+    --primary: #0ea5e9;
+    --primary-hover: #0284c7;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --success: #22c55e;
+    --discord: #5865F2;
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
 }
 
 body{
-background:#0f172a;
-color:white;
+    background:var(--bg-dark);
+    color:var(--text-main);
+    line-height: 1.6;
 }
 
-/* HEADER */
-
+/* --- HEADER --- */
 header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 40px;
-background:#020617;
-position:sticky;
-top:0;
-z-index:1000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 40px;
+    background:var(--bg-header);
+    backdrop-filter: blur(10px);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
 .logo{
-font-size:22px;
-font-weight:bold;
+    font-size:24px;
+    font-weight:800;
+    letter-spacing: -0.5px;
+    color: white;
+    text-decoration: none;
 }
 
 .menu{
-position:relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .dots{
-font-size:26px;
-cursor:pointer;
+    font-size:26px;
+    cursor:pointer;
+    padding: 5px;
+    transition: 0.2s;
 }
+.dots:hover { color: var(--primary); }
 
 .dropdown{
-display:none;
-position:absolute;
-right:0;
-top:35px;
-background:#1e293b;
-padding:15px;
-border-radius:8px;
-width:160px;
+    display:none;
+    position:absolute;
+    right:40px;
+    top:60px;
+    background:var(--bg-card);
+    padding:10px;
+    border-radius:12px;
+    width:180px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .dropdown a{
-display:block;
-padding:8px;
-text-decoration:none;
-color:white;
+    display:block;
+    padding:12px;
+    text-decoration:none;
+    color:var(--text-muted);
+    border-radius:8px;
+    font-weight: 500;
+    transition: 0.2s;
 }
 
 .dropdown a:hover{
-background:#334155;
-border-radius:5px;
+    background:var(--border);
+    color: white;
 }
 
-/* HERO */
-
+/* --- HERO --- */
 .hero{
-height:80vh;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-background:linear-gradient(135deg,#0ea5e9,#1e293b);
+    min-height:80vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background glow effect */
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: var(--primary);
+    filter: blur(150px);
+    opacity: 0.15;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
 }
 
 .hero h1{
-font-size:60px;
+    font-size: clamp(40px, 5vw, 70px); /* Responsive font size */
+    font-weight: 800;
+    background: linear-gradient(to right, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
 }
 
 .hero p{
-margin-top:10px;
-font-size:18px;
+    margin-top:10px;
+    font-size:18px;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* SECTIONS */
-
+/* --- SECTIONS --- */
 section{
-padding:60px 40px;
-text-align:center;
+    padding:80px 40px;
+    text-align:center;
+}
+
+section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+section p {
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 .highlights{
-display:flex;
-gap:30px;
-justify-content:center;
-flex-wrap:wrap;
+    display:flex;
+    gap:30px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top: 50px;
 }
 
 .card{
-background:#1e293b;
-padding:25px;
-width:260px;
-border-radius:10px;
+    background:var(--bg-card);
+    padding:30px;
+    width:280px;
+    border-radius:16px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover{
-transform:scale(1.05);
-transition:.3s;
+    transform:translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-color: var(--primary);
 }
 
-/* BUTTONS */
+.card h3 {
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+}
 
+/* --- BUTTONS --- */
 .btn{
-display:inline-block;
-margin-top:20px;
-padding:12px 25px;
-background:#0ea5e9;
-border-radius:8px;
-text-decoration:none;
-color:white;
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 30px;
+    background:var(--primary);
+    border-radius:50px;
+    text-decoration:none;
+    color:white;
+    font-weight: 600;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
 }
 
+.btn:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05);
+}
+
+/* Login Button in Header */
+.btn-login {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    margin-top: 0;
+    border: 1px solid var(--primary);
+    background: transparent;
+}
+.btn-login:hover {
+    background: var(--primary);
+    transform: none;
+}
+
+/* Support Button */
 .support-btn{
-position:fixed;
-bottom:25px;
-right:25px;
-background:#22c55e;
-padding:15px 20px;
-border-radius:50px;
-text-decoration:none;
-color:white;
-font-weight:bold;
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    background:var(--success);
+    padding:15px 25px;
+    border-radius:50px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
+    z-index: 900;
+    transition: 0.3s;
 }
 
-/* FOOTER */
+.support-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+}
 
+/* --- FOOTER --- */
 footer{
-background:#020617;
-padding:20px;
-text-align:center;
-margin-top:40px;
+    background:#020617;
+    padding:40px;
+    text-align:center;
+    margin-top:80px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
 }
+
+/* --- AUTH MODAL (Professional Popup) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.auth-box {
+    background: var(--bg-card);
+    width: 90%;
+    max-width: 400px;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .auth-box {
+    transform: scale(1);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px; right: 15px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: white;
+    outline: none;
+}
+.auth-input:focus { border-color: var(--primary); }
+
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.divider {
+    margin: 20px 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    position: relative;
+}
+.divider::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 50%;
+    width: 100%; height: 1px;
+    background: var(--border);
+    z-index: 0;
+}
+.divider span { background: var(--bg-card); padding: 0 10px; position: relative; z-index: 1; }
+
+.social-grid { display: flex; gap: 10px; margin-top: 10px; }
+.social-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.btn-google { background: #DB4437; }
+.btn-discord { background: #5865F2; }
+.btn-github { background: #333; }
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 20px; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--bg-card);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
 
 </style>
 </head>
 
 <body>
 
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal">
+    <div class="auth-box">
+        <button class="close-btn" onclick="toggleModal(false)">×</button>
+        <h2 style="margin-bottom: 5px;">Sign In</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Access the MMJ Community</p>
+        
+        <form id="loginForm">
+            <input type="email" id="emailInput" class="auth-input" placeholder="Enter your email" required>
+            <button type="submit" class="auth-btn">Send Magic Link</button>
+        </form>
+
+        <div class="divider"><span>Or continue with</span></div>
+
+        <div class="social-grid">
+            <button class="social-btn btn-google" onclick="socialLogin('google')">G</button>
+            <button class="social-btn btn-discord" onclick="socialLogin('discord')">D</button>
+            <button class="social-btn btn-github" onclick="socialLogin('github')">Git</button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast">Login Successful</div>
+
 <header>
 
-<div class="logo">MMJ Online</div>
+    <a href="index.html" class="logo">MMJ Online</a>
 
-<div class="menu">
-
-<div class="dots" onclick="toggleMenu()">⋮</div>
-
-<div class="dropdown" id="menu">
-
-<a href="index.html">Home</a>
-<a href="bio.html">Bio</a>
-<a href="skills.html">Skills</a>
-<a href="minecraft.html">Minecraft Mods</a>
-<a href="support.html">Support</a>
-
-</div>
-
-</div>
+    <div class="menu">
+        <!-- New Login Button -->
+        <button id="navLoginBtn" class="btn btn-login" onclick="toggleModal(true)">Login</button>
+        
+        <div class="dots" onclick="toggleMenu()">⋮</div>
+        
+        <div class="dropdown" id="menu">
+            <a href="index.html">Home</a>
+            <a href="bio.html">Bio</a>
+            <a href="skills.html">Skills</a>
+            <a href="minecraft.html">Minecraft Mods</a>
+            <a href="support.html">Support</a>
+        </div>
+    </div>
 
 </header>
 
-
 <section class="hero">
-
-<div>
-<h1>MMJ Online</h1>
-
-<p>Creative Minecraft Builds • Professional Web Design • Mod Recommendations</p>
-
-<a class="btn" href="https://forms.gle/1WkJHdXVMGKsFdC48">Hire Me</a>
-
-</div>
-
+    <div class="hero-content">
+        <h1>MMJ Online</h1>
+        <p>Creative Minecraft Builds • Professional Web Design • Mod Recommendations</p>
+        <a class="btn" href="https://forms.gle/1WkJHdXVMGKsFdC48">Hire Me</a>
+    </div>
 </section>
-
 
 <section>
-
-<h2>Welcome</h2>
-
-<p>
-This is my professional space where I showcase my Minecraft builds,
-web design work, and curated mods/plugins for the community.
-</p>
-
+    <h2>Welcome</h2>
+    <p>
+        This is my professional space where I showcase my Minecraft builds,
+        web design work, and curated mods/plugins for the community.
+    </p>
 </section>
-
 
 <section class="highlights">
-
-<div class="card">
-<h3>🎮 Minecraft Builds</h3>
-<p>Adventure maps, survival builds and creative worlds.</p>
-</div>
-
-<div class="card">
-<h3>💻 Web Design</h3>
-<p>Clean and modern websites with professional UI.</p>
-</div>
-
-<div class="card">
-<h3>🧩 Mods & Plugins</h3>
-<p>Best mods and plugins to enhance Minecraft.</p>
-</div>
-
+    <div class="card">
+        <h3>🎮 Minecraft Builds</h3>
+        <p>Adventure maps, survival builds and creative worlds.</p>
+    </div>
+    <div class="card">
+        <h3>💻 Web Design</h3>
+        <p>Clean and modern websites with professional UI.</p>
+    </div>
+    <div class="card">
+        <h3>🧩 Mods & Plugins</h3>
+        <p>Best mods and plugins to enhance Minecraft.</p>
+    </div>
 </section>
 
-
 <footer>
-
-<p>© 2026 MMJ Online | Powered by MMJ Pages</p>
-
+    <p>© 2026 MMJ Online | Powered by MMJ Pages</p>
 </footer>
-
 
 <a class="support-btn" href="support.html">Support</a>
 
-
 <script>
+    // --- 1. SUPABASE CONFIGURATION ---
+    const SUPABASE_URL = 'https://pyndjzoiojdtxzeeccoz.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5bmRqem9pb2pkdHh6ZWVjY296Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5ODg0MjUsImV4cCI6MjA5MzU2NDQyNX0.6tH0mj_KPQDcIcIfStcsuT89kPuX1ZFVCzB2pBt03c0';
+    
+    // Initialize Supabase
+    const { createClient } = supabase;
+    const _supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function toggleMenu(){
+    // --- 2. UI FUNCTIONS ---
 
-var menu=document.getElementById("menu");
+    // Toggle Menu (Original Logic)
+    function toggleMenu() {
+        var menu = document.getElementById("menu");
+        if (menu.style.display == "block") {
+            menu.style.display = "none";
+        } else {
+            menu.style.display = "block";
+        }
+    }
 
-if(menu.style.display=="block"){
-menu.style.display="none";
-}else{
-menu.style.display="block";
-}
+    // Toggle Auth Modal
+    function toggleModal(show) {
+        const modal = document.getElementById('authModal');
+        modal.classList.toggle('active', show);
+    }
 
-}
+    // Show Toast Notification
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+    }
 
+    // --- 3. AUTHENTICATION LOGIC ---
+
+    // Check login status on load
+    window.addEventListener('load', async () => {
+        const { data: { session } } = await _supabase.auth.getSession();
+        updateAuthUI(session);
+        
+        // Listen for auth changes
+        _supabase.auth.onAuthStateChange((_event, session) => {
+            updateAuthUI(session);
+        });
+    });
+
+    function updateAuthUI(session) {
+        const loginBtn = document.getElementById('navLoginBtn');
+        if (session) {
+            loginBtn.textContent = 'Logout';
+            loginBtn.onclick = handleLogout;
+            loginBtn.style.background = 'transparent';
+            loginBtn.style.color = '#ef4444'; // Red for logout
+            loginBtn.style.borderColor = '#ef4444';
+            showToast('Logged in successfully');
+        } else {
+            loginBtn.textContent = 'Login';
+            loginBtn.onclick = () => toggleModal(true);
+            loginBtn.style.background = 'transparent';
+            loginBtn.style.color = 'white';
+            loginBtn.style.borderColor = '#0ea5e9';
+        }
+    }
+
+    // Handle Email Magic Link
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('emailInput').value;
+        
+        const { error } = await _supabase.auth.signInWithOtp({
+            email: email,
+            options: {
+                emailRedirectTo: window.location.origin
+            }
+        });
+
+        if (error) {
+            showToast('Error: ' + error.message);
+        } else {
+            showToast('Check your email for the login link!');
+            toggleModal(false);
+        }
+    });
+
+    // Handle Social Login
+    async function socialLogin(provider) {
+        const { error } = await _supabase.auth.signInWithOAuth({
+            provider: provider,
+            options: {
+                redirectTo: window.location.origin
+            }
+        });
+        if (error) showToast('Error logging in with ' + provider);
+    }
+
+    // Handle Logout
+    async function handleLogout() {
+        const { error } = await _supabase.auth.signOut();
+        if (!error) showToast('Logged out');
+    }
 </script>
 
 </body>
