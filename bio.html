@@ -2,242 +2,570 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Me | MMJ Online</title>
+<meta name="description" content="Learn about MMJGaming — creative Minecraft builder and web designer from Bangladesh.">
+<meta name="keywords" content="MMJGaming, about, bio, Minecraft builder, web designer, Bangladesh">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --bg-header: rgba(2, 6, 23, 0.95);
+    --primary: #0ea5e9;
+    --primary-hover: #0284c7;
+    --accent-green: #22c55e;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #334155;
 }
 
-body{
-background:#0f172a;
-color:white;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* HEADER */
-
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 40px;
-background:#020617;
-position:sticky;
-top:0;
-z-index:1000;
+html {
+    scroll-behavior: smooth;
 }
 
-.logo{
-font-size:22px;
-font-weight:bold;
+body {
+    background: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
 }
 
-.menu{
-position:relative;
+/* --- HEADER --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: var(--bg-header);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-.dots{
-font-size:26px;
-cursor:pointer;
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: white;
+    text-decoration: none;
 }
 
-.dropdown{
-display:none;
-position:absolute;
-right:0;
-top:35px;
-background:#1e293b;
-padding:15px;
-border-radius:8px;
-width:170px;
+.menu {
+    position: relative;
 }
 
-.dropdown a{
-display:block;
-padding:8px;
-text-decoration:none;
-color:white;
+.dots {
+    font-size: 26px;
+    cursor: pointer;
+    padding: 5px;
+    user-select: none;
+    transition: color 0.2s;
+}
+.dots:hover { color: var(--primary); }
+
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: 45px;
+    background: var(--bg-card);
+    padding: 10px;
+    border-radius: 12px;
+    width: 180px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    pointer-events: none;
 }
 
-.dropdown a:hover{
-background:#334155;
-border-radius:5px;
+.dropdown.open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
-/* HERO */
-
-.hero{
-height:40vh;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-background:linear-gradient(135deg,#0ea5e9,#1e293b);
+.dropdown a {
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    color: var(--text-muted);
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.2s;
 }
 
-.hero h1{
-font-size:45px;
+.dropdown a:hover {
+    background: var(--border);
+    color: white;
 }
 
-.hero p{
-margin-top:10px;
-font-size:18px;
+.dropdown a.active-page {
+    color: var(--primary);
 }
 
-/* BIO */
-
-.bio{
-padding:60px 20px;
-display:flex;
-justify-content:center;
+/* --- HERO --- */
+.hero {
+    min-height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0c4a6e 0%, #0f172a 60%, #1e293b 100%);
 }
 
-.bio-card{
-background:#1e293b;
-max-width:800px;
-padding:40px;
-border-radius:12px;
-text-align:center;
-box-shadow:0 0 15px rgba(0,0,0,0.3);
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: var(--primary);
+    filter: blur(150px);
+    opacity: 0.12;
+    border-radius: 50%;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.profile-pic{
-width:150px;
-height:150px;
-border-radius:50%;
-object-fit:cover;
-margin-bottom:20px;
-border:4px solid #0ea5e9;
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: #818cf8;
+    filter: blur(120px);
+    opacity: 0.08;
+    border-radius: 50%;
+    bottom: -60px;
+    right: 15%;
 }
 
-.bio-card h2{
-margin-bottom:15px;
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
 }
 
-.bio-card p{
-margin-top:10px;
-line-height:1.6;
+.hero h1 {
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 800;
+    background: linear-gradient(to right, #fff, #7dd3fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
 }
 
-/* SUPPORT BUTTON */
-
-.support-btn{
-position:fixed;
-bottom:25px;
-right:25px;
-background:#22c55e;
-padding:15px 20px;
-border-radius:50px;
-text-decoration:none;
-color:white;
-font-weight:bold;
+.hero p {
+    font-size: 17px;
+    color: var(--text-muted);
 }
 
-/* FOOTER */
-
-footer{
-background:#020617;
-padding:20px;
-text-align:center;
-margin-top:40px;
+/* --- BIO SECTION --- */
+.bio-section {
+    padding: 80px 40px;
+    display: flex;
+    justify-content: center;
 }
 
+.bio-card {
+    background: var(--bg-card);
+    max-width: 780px;
+    width: 100%;
+    padding: 50px 45px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle glow behind the card */
+.bio-card::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: var(--primary);
+    filter: blur(120px);
+    opacity: 0.06;
+    border-radius: 50%;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.profile-pic {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 24px;
+    border: 4px solid var(--primary);
+    box-shadow: 0 0 30px rgba(14, 165, 233, 0.25);
+    position: relative;
+    z-index: 1;
+    /* Fallback for missing image */
+    background: var(--bg-dark);
+}
+
+.bio-card h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.bio-subtitle {
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 1;
+}
+
+.bio-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.8;
+}
+
+.bio-card p:last-child {
+    margin-bottom: 0;
+}
+
+.bio-card strong {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* Divider inside bio card */
+.bio-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 50px;
+    margin: 24px auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- FACTS ROW --- */
+.facts-section {
+    padding: 0 40px 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    max-width: 780px;
+    width: 100%;
+}
+
+.fact-card {
+    background: var(--bg-card);
+    padding: 28px 20px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.fact-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+}
+
+.fact-icon {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    display: block;
+    line-height: 1;
+}
+
+.fact-card h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-main);
+}
+
+.fact-card p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* --- LINKS SECTION --- */
+.links-section {
+    padding: 0 40px 80px;
+    text-align: center;
+}
+
+.links-section h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.links-row {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+.link-btn:hover {
+    transform: translateY(-2px);
+}
+
+.link-youtube {
+    background: #DC2626;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+.link-youtube:hover { background: #B91C1C; }
+
+.link-skills {
+    background: var(--primary);
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+}
+.link-skills:hover { background: var(--primary-hover); }
+
+.link-mods {
+    background: var(--accent-green);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+.link-mods:hover { background: #16a34a; }
+
+/* --- SUPPORT BUTTON --- */
+.support-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: var(--accent-green);
+    padding: 14px 22px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
+    z-index: 900;
+    transition: 0.3s;
+}
+
+.support-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+}
+
+/* --- FOOTER --- */
+footer {
+    background: #020617;
+    padding: 30px 40px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    header { padding: 15px 20px; }
+    .bio-section { padding: 50px 20px; }
+    .bio-card { padding: 35px 24px; }
+    .facts-section { padding: 0 20px 50px; }
+    .links-section { padding: 0 20px 50px; }
+    footer { padding: 25px 20px; }
+}
+
+@media (max-width: 480px) {
+    .facts-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .profile-pic { width: 110px; height: 110px; }
+    .links-row { flex-direction: column; align-items: center; }
+    .link-btn { width: 100%; max-width: 260px; justify-content: center; }
+}
 </style>
-
 </head>
 
 <body>
 
 <header>
+    <a href="index.html" class="logo">MMJ Online</a>
 
-<div class="logo">MMJ Online</div>
-
-<div class="menu">
-
-<div class="dots" onclick="toggleMenu()">⋮</div>
-
-<div class="dropdown" id="menu">
-
-<a href="index.html">Home</a>
-<a href="bio.html">Bio</a>
-<a href="skills.html">Skills</a>
-<a href="minecraft.html">Minecraft Mods</a>
-<a href="support.html">Support</a>
-
-</div>
-
-</div>
-
+    <div class="menu">
+        <div class="dots" id="dotsBtn">⋮</div>
+        <nav class="dropdown" id="menu">
+            <a href="index.html">Home</a>
+            <a href="bio.html" class="active-page">Bio</a>
+            <a href="skills.html">Skills</a>
+            <a href="minecraft.html">Minecraft Mods</a>
+            <a href="support.html">Support</a>
+        </nav>
+    </div>
 </header>
 
-
+<!-- HERO -->
 <section class="hero">
-
-<div>
-<h1>About Me</h1>
-<p>Discover my journey in Minecraft and Web Design</p>
-</div>
-
+    <div class="hero-content">
+        <h1>About Me</h1>
+        <p>Discover my journey in Minecraft and Web Design</p>
+    </div>
 </section>
 
+<!-- BIO CARD -->
+<section class="bio-section">
+    <div class="bio-card">
 
-<section class="bio">
+        <img src="assets/profile.jpg" alt="MMJ profile photo" class="profile-pic"
+             onerror="this.style.display='none'">
 
-<div class="bio-card">
+        <h2>Hello, I'm MMJ</h2>
+        <div class="bio-subtitle">Minecraft Builder &bull; Web Designer &bull; Bangladesh</div>
 
-<img src="assets/profile.jpg" alt="My Photo" class="profile-pic">
+        <div class="bio-divider"></div>
 
-<h2>Hello, I'm MMJ</h2>
+        <p>
+            I'm a creative builder from Bangladesh with a passion for
+            <strong>Minecraft building</strong> and <strong>modern web design</strong>.
+            I enjoy creating immersive Minecraft worlds and designing
+            clean, professional websites that people love to use.
+        </p>
 
-<p>
-I’m a creative builder from Bangladesh with a passion for
-<strong>Minecraft building</strong> and <strong>modern web design</strong>.
-I enjoy creating immersive Minecraft worlds and designing
-clean, professional websites that people love to use.
-</p>
+        <p>
+            Through MMJ Online I share my projects, recommend the best
+            Minecraft mods, plugins, and resource packs, and help others
+            explore their creativity in both gaming and digital design.
+        </p>
 
-<p>
-Through MMJ Online I share my projects, recommend the best
-Minecraft mods, plugins, and resource packs, and help others
-explore their creativity in both gaming and digital design.
-</p>
+        <p>
+            My goal is to combine imagination with technology to build
+            unique experiences for the Minecraft and web community.
+        </p>
 
-<p>
-My goal is to combine imagination with technology to build
-unique experiences for the Minecraft and web community.
-</p>
-
-</div>
-
+    </div>
 </section>
 
+<!-- FACTS -->
+<section class="facts-section">
+    <div class="facts-grid">
+
+        <div class="fact-card">
+            <span class="fact-icon">🎮</span>
+            <h4>Minecraft</h4>
+            <p>Creative & Survival Builds</p>
+        </div>
+
+        <div class="fact-card">
+            <span class="fact-icon">💻</span>
+            <h4>Web Design</h4>
+            <p>Modern UI & Frontend</p>
+        </div>
+
+        <div class="fact-card">
+            <span class="fact-icon">🧩</span>
+            <h4>Mod Curator</h4>
+            <p>Mods, Packs & Plugins</p>
+        </div>
+
+        <div class="fact-card">
+            <span class="fact-icon">🇧🇩</span>
+            <h4>Based in</h4>
+            <p>Bangladesh</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- QUICK LINKS -->
+<section class="links-section">
+    <h3>Explore My Work</h3>
+    <div class="links-row">
+
+        <a class="link-btn link-youtube" href="https://youtube.com/@mmjplays" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.13C5.12 19.56 12 19.56 12 19.56s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+            YouTube
+        </a>
+
+        <a class="link-btn link-skills" href="skills.html">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            My Skills
+        </a>
+
+        <a class="link-btn link-mods" href="minecraft.html">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg>
+            Minecraft Mods
+        </a>
+
+    </div>
+</section>
 
 <footer>
-<p>© 2026 MMJ Online | Powered by GitHub Pages</p>
+    <p>&copy; 2026 MMJ Online | Powered by MMJ Pages</p>
 </footer>
-
 
 <a class="support-btn" href="support.html">Support</a>
 
-
 <script>
+    const dotsBtn  = document.getElementById('dotsBtn');
+    const dropdown = document.getElementById('menu');
 
-function toggleMenu(){
+    dotsBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('open');
+    });
 
-var menu=document.getElementById("menu");
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.menu')) {
+            dropdown.classList.remove('open');
+        }
+    });
 
-if(menu.style.display=="block"){
-menu.style.display="none";
-}else{
-menu.style.display="block";
-}
-
-}
-
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') dropdown.classList.remove('open');
+    });
 </script>
 
 </body>
