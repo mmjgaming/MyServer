@@ -2,316 +2,685 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minecraft Mods | MMJ Online</title>
+<meta name="description" content="Curated Minecraft mods, resource packs, and plugins recommended by MMJGaming.">
+<meta name="keywords" content="Minecraft mods, resource packs, plugins, Sodium, OptiFine, MMJGaming">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --bg-header: rgba(2, 6, 23, 0.95);
+    --primary: #0ea5e9;
+    --primary-hover: #0284c7;
+    --accent-green: #22c55e;
+    --accent-green-hover: #16a34a;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #334155;
 }
 
-body{
-background:#0f172a;
-color:white;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* HEADER */
-
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 40px;
-background:#020617;
+html {
+    scroll-behavior: smooth;
 }
 
-.logo{
-font-size:22px;
-font-weight:bold;
+body {
+    background: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
 }
 
-.menu{
-position:relative;
+/* --- HEADER --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: var(--bg-header);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-.dots{
-font-size:26px;
-cursor:pointer;
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: white;
+    text-decoration: none;
 }
 
-.dropdown{
-display:none;
-position:absolute;
-right:0;
-top:35px;
-background:#1e293b;
-padding:15px;
-border-radius:8px;
-width:170px;
+.menu {
+    position: relative;
 }
 
-.dropdown a{
-display:block;
-padding:8px;
-text-decoration:none;
-color:white;
+.dots {
+    font-size: 26px;
+    cursor: pointer;
+    padding: 5px;
+    user-select: none;
+    transition: color 0.2s;
+}
+.dots:hover { color: var(--primary); }
+
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: 45px;
+    background: var(--bg-card);
+    padding: 10px;
+    border-radius: 12px;
+    width: 180px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    pointer-events: none;
 }
 
-.dropdown a:hover{
-background:#334155;
-border-radius:5px;
+.dropdown.open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
-/* HERO */
-
-.hero{
-height:40vh;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-background:linear-gradient(135deg,#16a34a,#1e293b);
+.dropdown a {
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    color: var(--text-muted);
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.2s;
 }
 
-/* GRID */
-
-.mods{
-display:flex;
-flex-wrap:wrap;
-gap:25px;
-justify-content:center;
-padding:60px 20px;
+.dropdown a:hover {
+    background: var(--border);
+    color: white;
 }
 
-.mod-card{
-background:#1e293b;
-padding:25px;
-width:260px;
-border-radius:10px;
-text-align:center;
+.dropdown a.active-page {
+    color: var(--primary);
 }
 
-.mod-card:hover{
-transform:scale(1.05);
-transition:.3s;
+/* --- HERO --- */
+.hero {
+    min-height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #052e16 0%, #0f172a 60%, #1e293b 100%);
 }
 
-.download{
-display:inline-block;
-margin-top:10px;
-padding:10px 18px;
-background:#22c55e;
-border-radius:6px;
-text-decoration:none;
-color:white;
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: var(--accent-green);
+    filter: blur(150px);
+    opacity: 0.12;
+    border-radius: 50%;
+    top: -100px;
+    right: 10%;
 }
 
-/* SUPPORT BUTTON */
-
-.support-btn{
-position:fixed;
-bottom:25px;
-right:25px;
-background:#22c55e;
-padding:15px 20px;
-border-radius:50px;
-text-decoration:none;
-color:white;
-font-weight:bold;
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: #22d3ee;
+    filter: blur(130px);
+    opacity: 0.08;
+    border-radius: 50%;
+    bottom: -80px;
+    left: 5%;
 }
 
-/* FOOTER */
-
-footer{
-background:#020617;
-padding:20px;
-text-align:center;
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
 }
 
+.hero h1 {
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 800;
+    background: linear-gradient(to right, #fff, #86efac);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+/* --- CATEGORY SECTION --- */
+.category-section {
+    padding: 70px 40px 20px;
+    text-align: center;
+}
+
+.category-section h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.category-section p {
+    color: var(--text-muted);
+    max-width: 550px;
+    margin: 0 auto 10px;
+    font-size: 0.95rem;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+
+.badge-mods {
+    background: rgba(14, 165, 233, 0.15);
+    color: var(--primary);
+    border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.badge-packs {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--accent-green);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge-more {
+    background: rgba(168, 85, 247, 0.15);
+    color: #a855f7;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+/* --- CARD GRID --- */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 24px;
+    padding: 0 40px 60px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.mod-card {
+    background: var(--bg-card);
+    padding: 28px 24px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mod-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    border-color: var(--primary);
+}
+
+.mod-card .card-icon {
+    font-size: 2rem;
+    margin-bottom: 14px;
+    display: block;
+    line-height: 1;
+}
+
+.mod-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+.mod-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+    flex-grow: 1;
+}
+
+.mod-card .card-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 50px;
+    margin-bottom: 14px;
+}
+
+.tag-performance {
+    background: rgba(14, 165, 233, 0.12);
+    color: #38bdf8;
+}
+
+.tag-utility {
+    background: rgba(250, 204, 21, 0.12);
+    color: #facc15;
+}
+
+.tag-world {
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+}
+
+.tag-mechanics {
+    background: rgba(249, 115, 22, 0.12);
+    color: #fb923c;
+}
+
+.tag-server {
+    background: rgba(168, 85, 247, 0.12);
+    color: #c084fc;
+}
+
+.tag-texture {
+    background: rgba(236, 72, 153, 0.12);
+    color: #f472b6;
+}
+
+.tag-realistic {
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+}
+
+.tag-stylized {
+    background: rgba(251, 146, 60, 0.12);
+    color: #fb923c;
+}
+
+.tag-tool {
+    background: rgba(94, 234, 212, 0.12);
+    color: #5eead4;
+}
+
+/* --- BUTTONS --- */
+.download-btn {
+    display: inline-block;
+    padding: 10px 22px;
+    background: var(--accent-green);
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: 0.2s;
+    box-shadow: 0 2px 10px rgba(34, 197, 94, 0.3);
+}
+
+.download-btn:hover {
+    background: var(--accent-green-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+}
+
+.visit-btn {
+    display: inline-block;
+    padding: 10px 22px;
+    background: #a855f7;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: 0.2s;
+    box-shadow: 0 2px 10px rgba(168, 85, 247, 0.3);
+}
+
+.visit-btn:hover {
+    background: #9333ea;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+}
+
+/* --- SUPPORT BUTTON --- */
+.support-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: var(--accent-green);
+    padding: 14px 22px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
+    z-index: 900;
+    transition: 0.3s;
+}
+
+.support-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+}
+
+/* --- FOOTER --- */
+footer {
+    background: #020617;
+    padding: 30px 40px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* --- DIVIDER --- */
+.section-divider {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.section-divider hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    header { padding: 15px 20px; }
+    .category-section { padding: 50px 20px 15px; }
+    .card-grid { padding: 0 20px 50px; gap: 16px; }
+    .section-divider { padding: 0 20px; }
+    footer { padding: 25px 20px; }
+}
+
+@media (max-width: 480px) {
+    .card-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 
 <body>
 
 <header>
+    <a href="index.html" class="logo">MMJ Online</a>
 
-<div class="logo">MMJ Online</div>
-
-<div class="menu">
-<div class="dots" onclick="toggleMenu()">⋮</div>
-
-<div class="dropdown" id="menu">
-<a href="index.html">Home</a>
-<a href="bio.html">Bio</a>
-<a href="skills.html">Skills</a>
-<a href="minecraft.html">Minecraft Mods</a>
-<a href="support.html">Support</a>
-</div>
-
-</div>
-
+    <div class="menu">
+        <div class="dots" id="dotsBtn">⋮</div>
+        <nav class="dropdown" id="menu">
+            <a href="index.html">Home</a>
+            <a href="bio.html">Bio</a>
+            <a href="skills.html">Skills</a>
+            <a href="minecraft.html" class="active-page">Minecraft Mods</a>
+            <a href="support.html">Support</a>
+        </nav>
+    </div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
-<div>
-<h1>Minecraft Mods & Resource Packs</h1>
-<p>Recommended mods to improve your gameplay</p>
-</div>
+    <div class="hero-content">
+        <h1>Minecraft Mods & Packs</h1>
+        <p>Hand-picked mods, resource packs, and plugins to elevate your Minecraft experience.</p>
+    </div>
 </section>
 
-
-<section class="mods">
-
-<!-- PERFORMANCE MODS -->
-
-<div class="mod-card">
-<h3>Sodium</h3>
-<p>Massive FPS boost for Minecraft.</p>
-<a class="download" href="https://modrinth.com/mod/sodium">Download</a>
+<!-- MODS SECTION -->
+<div class="category-section">
+    <span class="category-badge badge-mods">Mods & Plugins</span>
+    <h2>Essential Mods</h2>
+    <p>Performance boosts, quality-of-life features, and must-have additions for any player.</p>
 </div>
 
-<div class="mod-card">
-<h3>Sodium Extra</h3>
-<p>Extra settings and features for Sodium.</p>
-<a class="download" href="https://modrinth.com/mod/sodium-extra">Download</a>
+<div class="card-grid">
+
+    <div class="mod-card">
+        <span class="card-icon">⚡</span>
+        <h3>Sodium</h3>
+        <span class="card-tag tag-performance">Performance</span>
+        <p>Massive FPS boost — the modern replacement for OptiFine on Fabric.</p>
+        <a class="download-btn" href="https://modrinth.com/mod/sodium" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">🔧</span>
+        <h3>Sodium Extra</h3>
+        <span class="card-tag tag-performance">Performance</span>
+        <p>Extra settings and features that complement Sodium perfectly.</p>
+        <a class="download-btn" href="https://modrinth.com/mod/sodium-extra" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">🎬</span>
+        <h3>OptiFine</h3>
+        <span class="card-tag tag-performance">Performance</span>
+        <p>Improves graphics, adds shader support, and boosts FPS on Forge.</p>
+        <a class="download-btn" href="https://optifine.net/downloads" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">🪶</span>
+        <h3>Feather Client</h3>
+        <span class="card-tag tag-performance">Client</span>
+        <p>Lightweight Minecraft client with built-in mods and FPS boosts.</p>
+        <a class="download-btn" href="https://feathermc.com" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">🗺️</span>
+        <h3>JourneyMap</h3>
+        <span class="card-tag tag-utility">Utility</span>
+        <p>Real-time minimap and full world map with waypoint support.</p>
+        <a class="download-btn" href="https://www.curseforge.com/minecraft/mc-mods/journeymap" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">📖</span>
+        <h3>Just Enough Items</h3>
+        <span class="card-tag tag-utility">Utility</span>
+        <p>View all crafting recipes and item uses with a clean overlay.</p>
+        <a class="download-btn" href="https://www.curseforge.com/minecraft/mc-mods/jei" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">🌿</span>
+        <h3>Biomes O' Plenty</h3>
+        <span class="card-tag tag-world">World Gen</span>
+        <p>Adds 80+ new biomes, plants, and terrain features to explore.</p>
+        <a class="download-btn" href="https://www.curseforge.com/minecraft/mc-mods/biomes-o-plenty" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">🦁</span>
+        <h3>Alex's Mobs</h3>
+        <span class="card-tag tag-world">World Gen</span>
+        <p>Adds 85+ realistic animals with unique behaviors and drops.</p>
+        <a class="download-btn" href="https://www.curseforge.com/minecraft/mc-mods/alexs-mobs" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">⚙️</span>
+        <h3>Create Mod</h3>
+        <span class="card-tag tag-mechanics">Mechanics</span>
+        <p>Build mechanical contraptions, automation systems, and factories.</p>
+        <a class="download-btn" href="https://www.curseforge.com/minecraft/mc-mods/create" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">🚗</span>
+        <h3>MV Vehicle Plugin</h3>
+        <span class="card-tag tag-server">Server Plugin</span>
+        <p>Adds drivable vehicles to your Minecraft server.</p>
+        <a class="download-btn" href="https://mmjgaming.github.io/addon.yml/mvvehicle" target="_blank" rel="noopener">Download</a>
+    </div>
+
 </div>
 
-<div class="mod-card">
-<h3>OptiFine</h3>
-<p>Improves graphics and adds shader support.</p>
-<a class="download" href="https://optifine.net/downloads">Download</a>
+<!-- DIVIDER -->
+<div class="section-divider"><hr></div>
+
+<!-- RESOURCE PACKS SECTION -->
+<div class="category-section">
+    <span class="category-badge badge-packs">Resource Packs</span>
+    <h2>Texture Packs</h2>
+    <p>From faithful upgrades to photorealistic overhauls — find the right look for your world.</p>
 </div>
 
-<div class="mod-card">
-<h3>Feather Client</h3>
-<p>Performance Minecraft client with mods.</p>
-<a class="download" href="https://feathermc.com">Download</a>
+<div class="card-grid">
+
+    <div class="mod-card">
+        <span class="card-icon">💎</span>
+        <h3>Faithful 32x</h3>
+        <span class="card-tag tag-texture">Faithful</span>
+        <p>Higher resolution textures while staying true to vanilla Minecraft.</p>
+        <a class="download-btn" href="https://faithfulpack.net" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">🏙️</span>
+        <h3>ModernArch</h3>
+        <span class="card-tag tag-realistic">Realistic</span>
+        <p>Ultra-realistic PBR textures for stunning modern builds.</p>
+        <a class="download-btn" href="https://modernearch.com" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">✨</span>
+        <h3>Clarity</h3>
+        <span class="card-tag tag-texture">Clean</span>
+        <p>Clean, detailed textures that improve readability and aesthetics.</p>
+        <a class="download-btn" href="https://www.curseforge.com/minecraft/texture-packs/clarity" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">📖</span>
+        <h3>PureBDCraft</h3>
+        <span class="card-tag tag-stylized">Stylized</span>
+        <p>Iconic comic-book style pack with versions for many modded blocks.</p>
+        <a class="download-btn" href="https://bdcraft.net" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">🎯</span>
+        <h3>Stay True</h3>
+        <span class="card-tag tag-texture">Faithful</span>
+        <p>Subtle improvements to default textures that feel natural.</p>
+        <a class="download-btn" href="https://www.curseforge.com/minecraft/texture-packs/stay-true" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">🛠️</span>
+        <h3>Vanilla Tweaks</h3>
+        <span class="card-tag tag-tool">Tool</span>
+        <p>Customizable resource pack generator with hundreds of tweaks.</p>
+        <a class="download-btn" href="https://vanillatweaks.net" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">⚔️</span>
+        <h3>John Smith Legacy</h3>
+        <span class="card-tag tag-stylized">Medieval</span>
+        <p>Classic medieval-themed textures perfect for RPG builds.</p>
+        <a class="download-btn" href="https://www.curseforge.com/minecraft/texture-packs/john-smith-legacy" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">📷</span>
+        <h3>LB Photo Realism</h3>
+        <span class="card-tag tag-realistic">Realistic</span>
+        <p>One of the oldest photorealistic packs — still iconic today.</p>
+        <a class="download-btn" href="https://www.curseforge.com/minecraft/texture-packs/lb-photo-realism" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">🎨</span>
+        <h3>Depixel</h3>
+        <span class="card-tag tag-realistic">Smooth</span>
+        <p>Smooth, high-quality textures that remove Minecraft's pixelation.</p>
+        <a class="download-btn" href="https://www.curseforge.com/minecraft/texture-packs/depixel" target="_blank" rel="noopener">Download</a>
+    </div>
+
+    <div class="mod-card">
+        <span class="card-icon">➕</span>
+        <h3>Default+ Pack</h3>
+        <span class="card-tag tag-texture">Faithful</span>
+        <p>Polished upgrade to vanilla textures with added depth and detail.</p>
+        <a class="download-btn" href="https://www.curseforge.com/minecraft/texture-packs/default-plus" target="_blank" rel="noopener">Download</a>
+    </div>
+
 </div>
 
-<div class="mod-card">
-<h3>JourneyMap</h3>
-<p>Real-time minimap and world map.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/journeymap">Download</a>
-</div>
+<!-- DIVIDER -->
+<div class="section-divider"><hr></div>
 
-<div class="mod-card">
-<h3>Just Enough Items (JEI)</h3>
-<p>Shows crafting recipes.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/jei">Download</a>
+<!-- MORE MODS LINK -->
+<div class="category-section" style="padding-bottom: 60px;">
+    <span class="category-badge badge-more">Library</span>
+    <h2>Need More?</h2>
+    <p>Explore our full library of mods, plugins, and configuration guides.</p>
+    <a class="visit-btn" href="https://mmjgaming.github.io/Minecraft-/" target="_blank" rel="noopener" style="margin-top: 18px;">Visit Full Library →</a>
 </div>
-
-<div class="mod-card">
-<h3>Biomes O' Plenty</h3>
-<p>Adds many new biomes.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/biomes-o-plenty">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>Alex's Mobs</h3>
-<p>Adds realistic animals to Minecraft.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/alexs-mobs">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>Create Mod</h3>
-<p>Mechanical automation and machines.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/mc-mods/create">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>MV Vehicle Plugin</h3>
-<p>Adds drivable vehicles to Minecraft servers.</p>
-<a class="download" href="https://mmjgaming.github.io/addon.yml/mvvehicle">Download</a>
-</div>
-
-
-<!-- RESOURCE PACKS -->
-
-<div class="mod-card">
-<h3>Faithful 32x</h3>
-<p>Higher resolution Minecraft textures.</p>
-<a class="download" href="https://faithfulpack.net">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>ModernArch</h3>
-<p>Ultra realistic textures.</p>
-<a class="download" href="https://modernearch.com">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>Clarity</h3>
-<p>Clean and detailed textures.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/clarity">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>PureBDCraft</h3>
-<p>Comic-style Minecraft pack.</p>
-<a class="download" href="https://bdcraft.net">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>Stay True</h3>
-<p>Improves default Minecraft textures.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/stay-true">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>Vanilla Tweaks</h3>
-<p>Customizable resource packs.</p>
-<a class="download" href="https://vanillatweaks.net">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>John Smith Legacy</h3>
-<p>Medieval themed textures.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/john-smith-legacy">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>LB Photo Realism</h3>
-<p>Photorealistic Minecraft textures.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/lb-photo-realism">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>Depixel</h3>
-<p>Smooth realistic textures.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/depixel">Download</a>
-</div>
-
-<div class="mod-card">
-<h3>Default+ Pack</h3>
-<p>Improves vanilla Minecraft look.</p>
-<a class="download" href="https://www.curseforge.com/minecraft/texture-packs/default-plus">Download</a>
-</div>
-<!-- MORE MODS / PLUGINS LINK -->
-<div class="mod-card">
-  <h3>Need More Mods / Plugins?</h3>
-  <p>Visit our full library of mods and plugins for Minecraft.</p>
-  <a class="visit" href="https://mmjgaming.github.io/Minecraft-/" target="_blank">Visit Now</a>
-</div>
-</section>
 
 <footer>
-<p>© 2026 MMJ Online | Powered by GitHub Pages</p>
+    <p>&copy; 2026 MMJ Online | Powered by MMJ Pages</p>
 </footer>
 
 <a class="support-btn" href="support.html">Support</a>
 
 <script>
-function toggleMenu(){
-var menu=document.getElementById("menu");
-if(menu.style.display=="block"){
-menu.style.display="none";
-}else{
-menu.style.display="block";
-}
-}
+    // Dropdown toggle
+    const dotsBtn  = document.getElementById('dotsBtn');
+    const dropdown = document.getElementById('menu');
+
+    dotsBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('open');
+    });
+
+    // Close dropdown on outside click
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.menu')) {
+            dropdown.classList.remove('open');
+        }
+    });
+
+    // Close dropdown on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') dropdown.classList.remove('open');
+    });
 </script>
 
 </body>
