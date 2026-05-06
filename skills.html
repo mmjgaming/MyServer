@@ -2,298 +2,695 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Skills | MMJ Online</title>
+<meta name="description" content="Explore MMJGaming's skills — Minecraft building, web design, mod configuration, and more.">
+<meta name="keywords" content="MMJGaming, skills, Minecraft builder, web developer, mod configuration">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --bg-header: rgba(2, 6, 23, 0.95);
+    --primary: #0ea5e9;
+    --primary-hover: #0284c7;
+    --accent-green: #22c55e;
+    --accent-green-hover: #16a34a;
+    --accent-amber: #f59e0b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #334155;
 }
 
-body{
-background:#0f172a;
-color:white;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* HEADER */
-
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 40px;
-background:#020617;
-position:sticky;
-top:0;
-z-index:1000;
+html {
+    scroll-behavior: smooth;
 }
 
-.logo{
-font-size:22px;
-font-weight:bold;
+body {
+    background: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
 }
 
-.menu{
-position:relative;
+/* --- HEADER --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: var(--bg-header);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-.dots{
-font-size:26px;
-cursor:pointer;
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: white;
+    text-decoration: none;
 }
 
-.dropdown{
-display:none;
-position:absolute;
-right:0;
-top:35px;
-background:#1e293b;
-padding:15px;
-border-radius:8px;
-width:170px;
+.menu {
+    position: relative;
 }
 
-.dropdown a{
-display:block;
-padding:8px;
-text-decoration:none;
-color:white;
+.dots {
+    font-size: 26px;
+    cursor: pointer;
+    padding: 5px;
+    user-select: none;
+    transition: color 0.2s;
+}
+.dots:hover { color: var(--primary); }
+
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: 45px;
+    background: var(--bg-card);
+    padding: 10px;
+    border-radius: 12px;
+    width: 180px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    pointer-events: none;
 }
 
-.dropdown a:hover{
-background:#334155;
-border-radius:5px;
+.dropdown.open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
-/* HERO */
-
-.hero{
-height:40vh;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-background:linear-gradient(135deg,#0ea5e9,#1e293b);
+.dropdown a {
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    color: var(--text-muted);
+    border-radius: 8px;
+    font-weight: 500;
+    transition: 0.2s;
 }
 
-.hero h1{
-font-size:45px;
+.dropdown a:hover {
+    background: var(--border);
+    color: white;
 }
 
-.hero p{
-margin-top:10px;
-font-size:18px;
+.dropdown a.active-page {
+    color: var(--primary);
 }
 
-/* SKILLS */
-
-.skills{
-padding:60px 20px;
-max-width:900px;
-margin:auto;
+/* --- HERO --- */
+.hero {
+    min-height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0c4a6e 0%, #0f172a 55%, #1e293b 100%);
 }
 
-.skill{
-margin-bottom:30px;
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background: var(--accent-amber);
+    filter: blur(140px);
+    opacity: 0.1;
+    border-radius: 50%;
+    top: -80px;
+    right: 8%;
 }
 
-.skill-title{
-margin-bottom:8px;
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: var(--primary);
+    filter: blur(120px);
+    opacity: 0.08;
+    border-radius: 50%;
+    bottom: -50px;
+    left: 10%;
 }
 
-.progress{
-background:#1e293b;
-border-radius:10px;
-overflow:hidden;
-height:20px;
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 20px;
 }
 
-.progress-bar{
-height:20px;
-background:#0ea5e9;
+.hero h1 {
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 800;
+    background: linear-gradient(to right, #fff, #fcd34d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
 }
 
-/* CARDS */
-
-.skills-grid{
-display:flex;
-gap:25px;
-justify-content:center;
-flex-wrap:wrap;
-padding:40px 20px;
+.hero p {
+    font-size: 17px;
+    color: var(--text-muted);
 }
 
-.skill-card{
-background:#1e293b;
-padding:25px;
-width:260px;
-border-radius:10px;
-text-align:center;
+/* --- SECTION HEADERS --- */
+.section-header {
+    text-align: center;
+    padding: 0 40px;
+    margin-bottom: 45px;
 }
 
-.skill-card:hover{
-transform:scale(1.05);
-transition:.3s;
+.section-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
 }
 
-/* HIRE */
-
-.hire{
-text-align:center;
-padding:60px 20px;
+.section-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 550px;
+    margin: 0 auto;
 }
 
-.hire-btn{
-display:inline-block;
-margin-top:20px;
-padding:12px 25px;
-background:#0ea5e9;
-border-radius:8px;
-text-decoration:none;
-color:white;
+/* --- PROGRESS BARS --- */
+.skills-bars {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 70px 40px 80px;
 }
 
-/* SUPPORT BUTTON */
-
-.support-btn{
-position:fixed;
-bottom:25px;
-right:25px;
-background:#22c55e;
-padding:15px 20px;
-border-radius:50px;
-text-decoration:none;
-color:white;
-font-weight:bold;
+.skill-item {
+    margin-bottom: 32px;
 }
 
-/* FOOTER */
-
-footer{
-background:#020617;
-padding:20px;
-text-align:center;
-margin-top:40px;
+.skill-item:last-child {
+    margin-bottom: 0;
 }
 
+.skill-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.skill-top h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-top .skill-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.skill-percent {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+    min-width: 36px;
+    text-align: right;
+}
+
+.progress-track {
+    background: var(--bg-card);
+    border-radius: 50px;
+    height: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 50px;
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fill-minecraft { background: linear-gradient(90deg, #22c55e, #4ade80); }
+.fill-webdev    { background: linear-gradient(90deg, #0ea5e9, #38bdf8); }
+.fill-mods      { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.fill-uiux      { background: linear-gradient(90deg, #a855f7, #c084fc); }
+.fill-server    { background: linear-gradient(90deg, #ef4444, #f87171); }
+.fill-video     { background: linear-gradient(90deg, #ec4899, #f472b6); }
+
+/* --- SKILL CARDS --- */
+.cards-section {
+    padding: 0 40px 80px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.skill-card {
+    background: var(--bg-card);
+    padding: 32px 28px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    border-color: var(--primary);
+}
+
+.card-icon {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+    display: block;
+    line-height: 1;
+}
+
+.skill-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.skill-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* --- TOOLS SECTION --- */
+.tools-section {
+    padding: 0 40px 80px;
+    text-align: center;
+}
+
+.tools-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.tool-tag {
+    padding: 10px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: 0.2s;
+}
+
+.tool-tag:hover {
+    border-color: var(--primary);
+    color: var(--text-main);
+    background: rgba(14, 165, 233, 0.08);
+}
+
+/* --- CTA SECTION --- */
+.cta-section {
+    text-align: center;
+    padding: 0 40px 80px;
+}
+
+.cta-box {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 50px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-box::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: var(--primary);
+    filter: blur(120px);
+    opacity: 0.08;
+    border-radius: 50%;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.cta-box h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.cta-box p {
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    position: relative;
+}
+
+.hire-btn {
+    display: inline-block;
+    padding: 14px 36px;
+    background: var(--primary);
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: 0.2s;
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.35);
+    position: relative;
+}
+
+.hire-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(14, 165, 233, 0.45);
+}
+
+/* --- DIVIDER --- */
+.section-divider {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.section-divider hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+}
+
+/* --- SUPPORT BUTTON --- */
+.support-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: var(--accent-green);
+    padding: 14px 22px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
+    z-index: 900;
+    transition: 0.3s;
+}
+
+.support-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+}
+
+/* --- FOOTER --- */
+footer {
+    background: #020617;
+    padding: 30px 40px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    header { padding: 15px 20px; }
+    .section-header { padding: 0 20px; }
+    .skills-bars { padding: 50px 20px 60px; }
+    .cards-section { padding: 0 20px 60px; }
+    .tools-section { padding: 0 20px 60px; }
+    .cta-section { padding: 0 20px 60px; }
+    .cta-box { padding: 35px 24px; }
+    .section-divider { padding: 0 20px; }
+    footer { padding: 25px 20px; }
+}
+
+@media (max-width: 480px) {
+    .cards-grid { grid-template-columns: 1fr; }
+    .tools-grid { gap: 8px; }
+    .tool-tag { padding: 8px 14px; font-size: 0.8rem; }
+}
 </style>
 </head>
 
 <body>
 
 <header>
+    <a href="index.html" class="logo">MMJ Online</a>
 
-<div class="logo">MMJ Online</div>
-
-<div class="menu">
-
-<div class="dots" onclick="toggleMenu()">⋮</div>
-
-<div class="dropdown" id="menu">
-
-<a href="index.html">Home</a>
-<a href="bio.html">Bio</a>
-<a href="skills.html">Skills</a>
-<a href="minecraft.html">Minecraft Mods</a>
-<a href="support.html">Support</a>
-
-</div>
-
-</div>
-
+    <div class="menu">
+        <div class="dots" id="dotsBtn">⋮</div>
+        <nav class="dropdown" id="menu">
+            <a href="index.html">Home</a>
+            <a href="bio.html">Bio</a>
+            <a href="skills.html" class="active-page">Skills</a>
+            <a href="minecraft.html">Minecraft Mods</a>
+            <a href="support.html">Support</a>
+        </nav>
+    </div>
 </header>
 
-
+<!-- HERO -->
 <section class="hero">
-<div>
-<h1>My Skills</h1>
-<p>Creative Minecraft Builds • Professional Web Design • Mod Recommendations</p>
-</div>
+    <div class="hero-content">
+        <h1>My Skills</h1>
+        <p>Creative Minecraft Builds &bull; Professional Web Design &bull; Mod Recommendations</p>
+    </div>
 </section>
 
-
-<section class="skills">
-
-<div class="skill">
-<h3 class="skill-title">Minecraft Building</h3>
-<div class="progress">
-<div class="progress-bar" style="width:90%"></div>
-</div>
+<!-- PROGRESS BARS -->
+<div class="section-header" style="padding-top: 70px;">
+    <h2>Proficiency</h2>
+    <p>A breakdown of my core skills and experience levels.</p>
 </div>
 
-<div class="skill">
-<h3 class="skill-title">Website Development</h3>
-<div class="progress">
-<div class="progress-bar" style="width:85%"></div>
-</div>
-</div>
+<section class="skills-bars" id="barsSection">
 
-<div class="skill">
-<h3 class="skill-title">Mods & Plugins Configuration</h3>
-<div class="progress">
-<div class="progress-bar" style="width:80%"></div>
-</div>
-</div>
+    <div class="skill-item">
+        <div class="skill-top">
+            <h3><span class="skill-icon">🎮</span> Minecraft Building</h3>
+            <span class="skill-percent">90%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill fill-minecraft" data-width="90"></div>
+        </div>
+    </div>
+
+    <div class="skill-item">
+        <div class="skill-top">
+            <h3><span class="skill-icon">💻</span> Website Development</h3>
+            <span class="skill-percent">85%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill fill-webdev" data-width="85"></div>
+        </div>
+    </div>
+
+    <div class="skill-item">
+        <div class="skill-top">
+            <h3><span class="skill-icon">🧩</span> Mods & Plugins Configuration</h3>
+            <span class="skill-percent">80%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill fill-mods" data-width="80"></div>
+        </div>
+    </div>
+
+    <div class="skill-item">
+        <div class="skill-top">
+            <h3><span class="skill-icon">🎨</span> UI / UX Design</h3>
+            <span class="skill-percent">78%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill fill-uiux" data-width="78"></div>
+        </div>
+    </div>
+
+    <div class="skill-item">
+        <div class="skill-top">
+            <h3><span class="skill-icon">🖥️</span> Server Setup & Management</h3>
+            <span class="skill-percent">75%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill fill-server" data-width="75"></div>
+        </div>
+    </div>
+
+    <div class="skill-item">
+        <div class="skill-top">
+            <h3><span class="skill-icon">📹</span> Video Editing</h3>
+            <span class="skill-percent">70%</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill fill-video" data-width="70"></div>
+        </div>
+    </div>
 
 </section>
 
+<!-- DIVIDER -->
+<div class="section-divider"><hr></div>
 
-<section class="skills-grid">
+<!-- SKILL CARDS -->
+<div class="cards-section" style="padding-top: 70px;">
+    <div class="section-header" style="padding: 0 0 45px;">
+        <h2>What I Do</h2>
+        <p>Detailed look at my three main areas of expertise.</p>
+    </div>
 
-<div class="skill-card">
-<h2>🎮 Minecraft Building</h2>
-<p>I design immersive worlds, adventure maps, and creative builds with precision and imagination.</p>
+    <div class="cards-grid">
+
+        <div class="skill-card">
+            <span class="card-icon">🎮</span>
+            <h3>Minecraft Building</h3>
+            <p>I design immersive worlds, adventure maps, and creative builds with precision and imagination — from medieval castles to modern cityscapes.</p>
+        </div>
+
+        <div class="skill-card">
+            <span class="card-icon">💻</span>
+            <h3>Website Development</h3>
+            <p>I build professional websites with clean navigation, consistent branding, responsive layouts, and interactive features using modern frontend technologies.</p>
+        </div>
+
+        <div class="skill-card">
+            <span class="card-icon">🧩</span>
+            <h3>Mods & Plugins</h3>
+            <p>I recommend, test, and configure Minecraft mods, plugins, and resource packs to create the best possible gameplay experience.</p>
+        </div>
+
+    </div>
 </div>
 
-<div class="skill-card">
-<h2>💻 Website Development</h2>
-<p>I build professional websites with clean navigation, branding, and interactive features.</p>
+<!-- DIVIDER -->
+<div class="section-divider"><hr></div>
+
+<!-- TOOLS -->
+<div class="tools-section" style="padding-top: 70px;">
+    <div class="section-header" style="padding: 0 0 35px;">
+        <h2>Tools & Technologies</h2>
+        <p>Software and platforms I work with regularly.</p>
+    </div>
+
+    <div class="tools-grid">
+        <span class="tool-tag">HTML5</span>
+        <span class="tool-tag">CSS3</span>
+        <span class="tool-tag">JavaScript</span>
+        <span class="tool-tag">Supabase</span>
+        <span class="tool-tag">Git & GitHub</span>
+        <span class="tool-tag">Figma</span>
+        <span class="tool-tag">VS Code</span>
+        <span class="tool-tag">Minecraft Java</span>
+        <span class="tool-tag">Minecraft Bedrock</span>
+        <span class="tool-tag">Spigot / Paper</span>
+        <span class="tool-tag">Fabric</span>
+        <span class="tool-tag">Forge</span>
+        <span class="tool-tag">WorldEdit</span>
+        <span class="tool-tag">DaVinci Resolve</span>
+        <span class="tool-tag">Canva</span>
+        <span class="tool-tag">GitHub Pages</span>
+    </div>
 </div>
 
-<div class="skill-card">
-<h2>🧩 Mods & Plugins</h2>
-<p>I recommend and configure Minecraft mods, plugins, and resource packs to enhance gameplay.</p>
-</div>
+<!-- DIVIDER -->
+<div class="section-divider"><hr></div>
 
+<!-- CTA -->
+<section class="cta-section" style="padding-top: 70px; padding-bottom: 80px;">
+    <div class="cta-box">
+        <h2>Work With Me</h2>
+        <p>Looking for a Minecraft builder or a web designer? Let's collaborate and bring your ideas to life.</p>
+        <a href="https://forms.gle/1WkJHdXVMGKsFdC48" class="hire-btn" target="_blank" rel="noopener">Hire Me →</a>
+    </div>
 </section>
-
-
-<section class="hire">
-
-<h2>Work With Me</h2>
-
-<p>Looking for a Minecraft builder or a web designer? Let’s collaborate.</p>
-
-<a href="https://forms.gle/1WkJHdXVMGKsFdC48" class="hire-btn">Hire Me</a>
-
-</section>
-
 
 <footer>
-<p>© 2026 MMJ Online | Powered by GitHub Pages</p>
+    <p>&copy; 2026 MMJ Online | Powered by MMJ Pages</p>
 </footer>
-
 
 <a class="support-btn" href="support.html">Support</a>
 
-
 <script>
+    // --- Dropdown ---
+    const dotsBtn  = document.getElementById('dotsBtn');
+    const dropdown = document.getElementById('menu');
 
-function toggleMenu(){
+    dotsBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('open');
+    });
 
-var menu=document.getElementById("menu");
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.menu')) dropdown.classList.remove('open');
+    });
 
-if(menu.style.display=="block"){
-menu.style.display="none";
-}else{
-menu.style.display="block";
-}
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') dropdown.classList.remove('open');
+    });
 
-}
+    // --- Animated progress bars (Intersection Observer) ---
+    const barsSection = document.getElementById('barsSection');
+    let barsAnimated  = false;
 
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !barsAnimated) {
+                barsAnimated = true;
+                const fills = barsSection.querySelectorAll('.progress-fill');
+                fills.forEach((fill, i) => {
+                    // Stagger each bar slightly
+                    setTimeout(() => {
+                        fill.style.width = fill.dataset.width + '%';
+                    }, i * 120);
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    observer.observe(barsSection);
 </script>
 
 </body>
