@@ -281,7 +281,7 @@ footer{
     width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(5px);
-    display: none; /* Hidden by default */
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 2000;
@@ -322,6 +322,31 @@ footer{
     cursor: pointer;
 }
 
+/* Toggle Tabs */
+.auth-tabs {
+    display: flex;
+    background: #0f172a;
+    padding: 5px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.auth-tab {
+    flex: 1;
+    padding: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.auth-tab.active {
+    background: var(--bg-card);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
 .auth-input {
     width: 100%;
     padding: 12px;
@@ -344,7 +369,9 @@ footer{
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.2s;
 }
+.auth-btn:hover { background: var(--primary-hover); }
 
 .divider {
     margin: 20px 0;
@@ -409,12 +436,20 @@ footer{
 <div class="modal-overlay" id="authModal">
     <div class="auth-box">
         <button class="close-btn" onclick="toggleModal(false)">×</button>
-        <h2 style="margin-bottom: 5px;">Sign In</h2>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Access the MMJ Community</p>
         
-        <form id="loginForm">
-            <input type="email" id="emailInput" class="auth-input" placeholder="Enter your email" required>
-            <button type="submit" class="auth-btn">Send Magic Link</button>
+        <h2 style="margin-bottom: 15px;" id="modalTitle">Welcome</h2>
+        
+        <!-- Toggle Tabs -->
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="tabLogin" onclick="setAuthMode('login')">Login</button>
+            <button class="auth-tab" id="tabSignup" onclick="setAuthMode('signup')">Sign Up</button>
+        </div>
+
+        <form id="authForm">
+            <input type="email" id="emailInput" class="auth-input" placeholder="Email Address" required>
+            <input type="password" id="passwordInput" class="auth-input" placeholder="Password" required minlength="6">
+            
+            <button type="submit" id="submitBtn" class="auth-btn">Login</button>
         </form>
 
         <div class="divider"><span>Or continue with</span></div>
@@ -497,25 +532,42 @@ footer{
     const { createClient } = supabase;
     const _supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+    // State
+    let isLoginMode = true;
+
     // --- 2. UI FUNCTIONS ---
 
-    // Toggle Menu (Original Logic)
+    // Toggle Menu
     function toggleMenu() {
         var menu = document.getElementById("menu");
-        if (menu.style.display == "block") {
-            menu.style.display = "none";
-        } else {
-            menu.style.display = "block";
-        }
+        menu.style.display = (menu.style.display == "block") ? "none" : "block";
     }
 
-    // Toggle Auth Modal
+    // Toggle Modal
     function toggleModal(show) {
         const modal = document.getElementById('authModal');
         modal.classList.toggle('active', show);
     }
 
-    // Show Toast Notification
+    // Toggle Auth Mode (Login vs Signup)
+    function setAuthMode(mode) {
+        isLoginMode = (mode === 'login');
+        const tabLogin = document.getElementById('tabLogin');
+        const tabSignup = document.getElementById('tabSignup');
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (isLoginMode) {
+            tabLogin.classList.add('active');
+            tabSignup.classList.remove('active');
+            submitBtn.textContent = 'Login';
+        } else {
+            tabSignup.classList.add('active');
+            tabLogin.classList.remove('active');
+            submitBtn.textContent = 'Create Account';
+        }
+    }
+
+    // Show Toast
     function showToast(message) {
         const toast = document.getElementById('toast');
         toast.textContent = message;
@@ -525,12 +577,10 @@ footer{
 
     // --- 3. AUTHENTICATION LOGIC ---
 
-    // Check login status on load
     window.addEventListener('load', async () => {
         const { data: { session } } = await _supabase.auth.getSession();
         updateAuthUI(session);
         
-        // Listen for auth changes
         _supabase.auth.onAuthStateChange((_event, session) => {
             updateAuthUI(session);
         });
@@ -542,7 +592,7 @@ footer{
             loginBtn.textContent = 'Logout';
             loginBtn.onclick = handleLogout;
             loginBtn.style.background = 'transparent';
-            loginBtn.style.color = '#ef4444'; // Red for logout
+            loginBtn.style.color = '#ef4444';
             loginBtn.style.borderColor = '#ef4444';
             showToast('Logged in successfully');
         } else {
@@ -554,22 +604,53 @@ footer{
         }
     }
 
-    // Handle Email Magic Link
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    // Handle Form Submit (Login or Signup)
+    document.getElementById('authForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById('emailInput').value;
-        
-        const { error } = await _supabase.auth.signInWithOtp({
-            email: email,
-            options: {
-                emailRedirectTo: window.location.origin
+        const password = document.getElementById('passwordInput').value;
+        const btn = document.getElementById('submitBtn');
+
+        btn.textContent = isLoginMode ? 'Logging in...' : 'Creating Account...';
+        btn.disabled = true;
+
+        let error = null;
+
+        if (isLoginMode) {
+            // LOGIN
+            const { data, error: loginError } = await _supabase.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+            error = loginError;
+        } else {
+            // SIGNUP
+            const { data, error: signupError } = await _supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    emailRedirectTo: window.location.origin
+                }
+            });
+            error = signupError;
+            
+            // Note: If email confirmation is ON, user is created but not logged in immediately.
+            if (!error && !data.session) {
+                showToast('Account created! Check your email to confirm.');
+                btn.disabled = false;
+                btn.textContent = 'Create Account';
+                toggleModal(false);
+                return;
             }
-        });
+        }
+
+        btn.disabled = false;
+        btn.textContent = isLoginMode ? 'Login' : 'Create Account';
 
         if (error) {
             showToast('Error: ' + error.message);
         } else {
-            showToast('Check your email for the login link!');
+            showToast('Success!');
             toggleModal(false);
         }
     });
