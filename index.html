@@ -537,19 +537,16 @@ footer{
 
     // --- 2. UI FUNCTIONS ---
 
-    // Toggle Menu
     function toggleMenu() {
         var menu = document.getElementById("menu");
         menu.style.display = (menu.style.display == "block") ? "none" : "block";
     }
 
-    // Toggle Modal
     function toggleModal(show) {
         const modal = document.getElementById('authModal');
         modal.classList.toggle('active', show);
     }
 
-    // Toggle Auth Mode (Login vs Signup)
     function setAuthMode(mode) {
         isLoginMode = (mode === 'login');
         const tabLogin = document.getElementById('tabLogin');
@@ -567,7 +564,6 @@ footer{
         }
     }
 
-    // Show Toast
     function showToast(message) {
         const toast = document.getElementById('toast');
         toast.textContent = message;
@@ -604,7 +600,6 @@ footer{
         }
     }
 
-    // Handle Form Submit (Login or Signup)
     document.getElementById('authForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = document.getElementById('emailInput').value;
@@ -617,24 +612,29 @@ footer{
         let error = null;
 
         if (isLoginMode) {
-            // LOGIN
+            // LOGIN (No redirect needed usually)
             const { data, error: loginError } = await _supabase.auth.signInWithPassword({
                 email: email,
                 password: password,
             });
             error = loginError;
         } else {
-            // SIGNUP
+            // SIGNUP (Needs redirect for email confirmation)
+            const origin = window.location.origin;
+            
+            // DEBUGGING ALERT
+            console.log("Attempting Signup Redirect to:", origin);
+            alert("Redirect URL for Signup: " + origin + "\nMake sure this EXACT URL is in your Supabase Dashboard -> Authentication -> URL Configuration.");
+
             const { data, error: signupError } = await _supabase.auth.signUp({
                 email: email,
                 password: password,
                 options: {
-                    emailRedirectTo: window.location.origin
+                    emailRedirectTo: origin
                 }
             });
             error = signupError;
             
-            // Note: If email confirmation is ON, user is created but not logged in immediately.
             if (!error && !data.session) {
                 showToast('Account created! Check your email to confirm.');
                 btn.disabled = false;
@@ -655,18 +655,22 @@ footer{
         }
     });
 
-    // Handle Social Login
     async function socialLogin(provider) {
+        const origin = window.location.origin;
+        
+        // DEBUGGING ALERT
+        console.log("Attempting Social Redirect to:", origin);
+        alert("Redirect URL for " + provider + ": " + origin + "\nMake sure this EXACT URL is in your Supabase Dashboard.");
+
         const { error } = await _supabase.auth.signInWithOAuth({
             provider: provider,
             options: {
-                redirectTo: window.location.origin
+                redirectTo: origin
             }
         });
         if (error) showToast('Error logging in with ' + provider);
     }
 
-    // Handle Logout
     async function handleLogout() {
         const { error } = await _supabase.auth.signOut();
         if (!error) showToast('Logged out');
